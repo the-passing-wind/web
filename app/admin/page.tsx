@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/lib/AuthContext";
+import { useLanguage } from "@/lib/i18n";
 import { formatDistanceToNow } from "date-fns";
 import Navbar from "@/components/Navbar";
 
@@ -26,6 +27,7 @@ interface Story {
 
 export default function AdminPage() {
   const { user, isAdmin, isLoading } = useAuth();
+  const { t } = useLanguage();
   const [stories, setStories] = useState<Story[]>([]);
   const [tab, setTab] = useState<"pending" | "approved">("pending");
 
@@ -45,7 +47,7 @@ export default function AdminPage() {
       <main className="min-h-screen">
         <Navbar />
         <div className="pt-40 text-center">
-          <p className="text-2xl font-serif text-text-main">Access Denied</p>
+          <p className="text-2xl font-serif text-text-main">{t.admin.accessDenied}</p>
         </div>
       </main>
     );
@@ -62,20 +64,22 @@ export default function AdminPage() {
     <main className="min-h-screen pb-20">
       <Navbar />
       <div className="pt-32 max-w-4xl mx-auto px-6">
-        <h1 className="text-4xl font-serif text-text-main mb-8">Admin Panel</h1>
+        <h1 className="text-4xl font-serif text-text-main mb-8">{t.admin.title}</h1>
 
         <div className="flex gap-4 mb-10">
-          {(["pending", "approved"] as const).map((t) => (
+          {(["pending", "approved"] as const).map((key) => (
             <button
-              key={t}
-              onClick={() => setTab(t)}
+              key={key}
+              onClick={() => setTab(key)}
               className={`px-6 py-2 rounded-full text-sm font-bold border transition-all ${
-                tab === t
+                tab === key
                   ? "bg-text-main text-bg-base border-text-main"
                   : "bg-bg-base text-text-dim border-border-main hover:border-text-main"
               }`}
             >
-              {t === "pending" ? `Pending (${pending.length})` : `Approved (${approved.length})`}
+              {key === "pending"
+                ? `${t.admin.pending} (${pending.length})`
+                : `${t.admin.approved} (${approved.length})`}
             </button>
           ))}
         </div>
@@ -83,18 +87,18 @@ export default function AdminPage() {
         <div className="flex flex-col gap-6">
           {displayed.length === 0 ? (
             <div className="text-center py-20 bg-bg-surface rounded-3xl border-2 border-dashed border-border-main">
-              <p className="text-text-dim font-serif italic">No stories here.</p>
+              <p className="text-text-dim font-serif italic">{t.admin.noStories}</p>
             </div>
           ) : (
             displayed.map((story) => (
               <article key={story.id} className="bg-bg-base border border-border-main rounded-3xl p-8">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="font-bold text-sm text-text-main">{story.alias || "Anonymous"}</p>
+                    <p className="font-bold text-sm text-text-main">{story.alias || t.common.anonymousAgent}</p>
                     <p className="text-[10px] font-mono text-text-dim uppercase tracking-tighter">
                       {story.createdAt?.toDate
                         ? formatDistanceToNow(story.createdAt.toDate(), { addSuffix: true })
-                        : "just now"}
+                        : t.common.justNow}
                     </p>
                   </div>
                   <span className="px-3 py-1 bg-bg-surface rounded-full text-[10px] font-black uppercase tracking-tighter text-text-dim">
@@ -114,14 +118,14 @@ export default function AdminPage() {
                       onClick={() => approve(story.id)}
                       className="px-5 py-2 bg-brand text-bg-base rounded-xl text-sm font-bold hover:opacity-90 transition-all"
                     >
-                      Approve
+                      {t.admin.approve}
                     </button>
                   )}
                   <button
                     onClick={() => remove(story.id)}
                     className="px-5 py-2 bg-bg-surface text-red-500 border border-red-200 rounded-xl text-sm font-bold hover:bg-red-50 transition-all"
                   >
-                    Delete
+                    {t.admin.delete}
                   </button>
                 </div>
               </article>

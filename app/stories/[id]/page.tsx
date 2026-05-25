@@ -60,9 +60,9 @@ export default function StoryDetail() {
       <div className="min-h-screen bg-bg-base">
         <Navbar />
         <div className="pt-40 max-w-xl mx-auto px-6 text-center">
-          <h1 className="text-4xl font-serif text-text-main mb-8">Story Not Found</h1>
+          <h1 className="text-4xl font-serif text-text-main mb-8">{t.stories.notFound}</h1>
           <Link href="/stories" className="text-brand font-bold hover:underline">
-            Back to Archive
+            {t.stories.backToArchive}
           </Link>
         </div>
       </div>
@@ -91,12 +91,12 @@ export default function StoryDetail() {
                 </div>
                 <div>
                   <h2 className="font-bold text-xl text-text-main">
-                    {story.alias || "Anonymous Agent"}
+                    {story.alias || t.common.anonymousAgent}
                   </h2>
                   <p className="text-xs font-mono text-text-dim uppercase tracking-widest">
                     {story.createdAt?.toDate
                       ? formatDistanceToNow(story.createdAt.toDate(), { addSuffix: true })
-                      : "just now"}
+                      : t.common.justNow}
                   </p>
                 </div>
               </div>
