@@ -57,6 +57,38 @@ const zh = {
     title: "避风",
     titleAccent: "之港",
     description: "远航需要支点。这些组织提供你继续前行所需的保护与力量。",
+    items: [
+      {
+        title: "Trans Lifeline",
+        description: "由跨性别者为跨性别者提供的危机支持热线，安全可信赖。",
+        category: "Safety" as const,
+        url: "https://translifeline.org/",
+      },
+      {
+        title: "The Trevor Project",
+        description: "为LGBTQ青少年提供全天候危机干预与自杀预防服务。",
+        category: "Safety" as const,
+        url: "https://www.thetrevorproject.org/",
+      },
+      {
+        title: "Lambda Legal",
+        description: "致力于推动公民权利全面落实的全国性法律组织。",
+        category: "Legal" as const,
+        url: "https://www.lambdalegal.org/",
+      },
+      {
+        title: "Glaad Resource List",
+        description: "涵盖医疗与社区支持组织的综合资源目录。",
+        category: "Healthcare" as const,
+        url: "https://www.glaad.org/transgender/resources",
+      },
+      {
+        title: "TSER",
+        description: "跨性别学生教育资源组织，由青年主导，专注倡导工作。",
+        category: "Community" as const,
+        url: "https://transstudent.org/",
+      },
+    ],
   },
   allies: {
     title: "聚风",

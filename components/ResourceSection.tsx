@@ -4,45 +4,6 @@ import { Shield, BookOpen, HeartPulse, Scale, ExternalLink } from "lucide-react"
 import { motion } from "motion/react";
 import { useLanguage } from "@/lib/i18n";
 
-interface Resource {
-  title: string;
-  description: string;
-  category: "Legal" | "Healthcare" | "Community" | "Safety";
-  url: string;
-}
-
-const RESOURCES: Resource[] = [
-  {
-    title: "Trans Lifeline",
-    description: "Crisis support by and for trans people. A secure, peer-support line.",
-    category: "Safety",
-    url: "https://translifeline.org/",
-  },
-  {
-    title: "The Trevor Project",
-    description: "24/7 crisis intervention and suicide prevention services for LGBTQ youth.",
-    category: "Safety",
-    url: "https://www.thetrevorproject.org/",
-  },
-  {
-    title: "Lambda Legal",
-    description: "National organization committed to achieving full recognition of civil rights.",
-    category: "Legal",
-    url: "https://www.lambdalegal.org/",
-  },
-  {
-    title: "Glaad Resource List",
-    description: "Extensive directory of healthcare and community support organizations.",
-    category: "Healthcare",
-    url: "https://www.glaad.org/transgender/resources",
-  },
-  {
-    title: "TSER",
-    description: "Trans Student Educational Resources. Youth-led organization for advocacy.",
-    category: "Community",
-    url: "https://transstudent.org/",
-  },
-];
 
 const CategoryIcon = ({ type }: { type: string }) => {
   switch (type) {
@@ -74,7 +35,7 @@ export default function ResourceSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {RESOURCES.map((resource, i) => (
+          {t.resources.items.map((resource, i) => (
             <motion.a
               key={resource.title}
               href={resource.url}
